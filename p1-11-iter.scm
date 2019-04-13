@@ -1,4 +1,3 @@
-#lang racket
 (define (f n)
   (f-iter 2 1 0 0 n)
  )

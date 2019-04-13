@@ -1,5 +1,3 @@
-#lang sicp
-
 (define	(f n)
   (cond ((< n 3 ) n)
         (else (+ (f (- n 1)) 
