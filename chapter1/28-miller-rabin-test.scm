@@ -1,0 +1,40 @@
+(define (nontrival-square-root? a n)
+    (and (not (= a 1))
+         (not (= a (- n 1)))
+         (= (remainder (square a) n) 1)
+         ))
+
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((nontrival-square-root? base m) 0)
+        ((even? exp)
+         (remainder (square (expmod base (/ exp 2) m))
+                    m))
+        (else
+         (remainder (* base (expmod base (- exp 1) m))
+                    m))))
+
+(define (non-zero-random n)
+  (let ((r (random n)))
+    (if (not (= r 0))
+      r
+      (non-zero-random n)
+      )))
+
+(define (Miller-Rabin-test n)
+    (test-iter n (ceiling (/ n 2)))) 
+
+(define (test-iter n times)
+  (cond ((= times 0) true)
+        ((= (expmod (non-zero-random n) (- n 1) n) 
+         1)
+         (test-iter n (- times 1))
+         )
+        (else false)))
+
+(Miller-Rabin-test 561)
+(Miller-Rabin-test 1105)
+(Miller-Rabin-test 1729)
+(Miller-Rabin-test 2465)
+(Miller-Rabin-test 2861)
+(Miller-Rabin-test 6601)
