@@ -58,13 +58,18 @@
   (cadr segment)
   )
 
-;; EXERCISE 2.48
-;(define seg (make-segment (make-vect 0.0 0.0)
-;                          (make-vect 1.0 1.0)))
-;(display seg)
-;(newline)
-;(start-segment seg)
-;(end-segment seg)
 
+
+;;; EXERCISES
+
+;; EXERCISE 2.48
+#|
+(define seg (make-segment (make-vect 0.0 0.0)
+                          (make-vect 1.0 1.0)))
+(display seg)
+(newline)
+(start-segment seg)
+(end-segment seg)
+|#
 
 
