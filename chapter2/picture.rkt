@@ -70,7 +70,13 @@
 (define (start-segment segment)
   (car segment)
   )
-
+(define (below2 painter1 painter2)
+  (lambda (frame)
+    ((rotate90
+      (beside (rotate270 painter1)
+              (rotate270 painter2)))
+     frame)
+    ))
 (define (end-segment segment)
   (cadr segment)
   )
@@ -303,4 +309,4 @@
 
 #;((beside wave-painter wave-painter) unit-frame)
 #;((below wave-painter wave-painter) unit-frame)
-#;((below2 wave-painter wave-painter) unit-frame)
+((below2 wave-painter wave-painter) unit-frame)
