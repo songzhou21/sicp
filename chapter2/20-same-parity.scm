@@ -12,7 +12,7 @@
           (car remain))
          (cons (car remain)
                (same-parity-iter first (cdr remain))))
-        (else (same-parity-iter first(cdr remain)))))
+        (else (same-parity-iter first (cdr remain)))))
 
 (define (same-parity first . remain)
   (cons first
