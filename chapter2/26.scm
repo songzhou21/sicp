@@ -8,6 +8,7 @@
 
 (cons x y)
 (cons x (cons 4 (cons 5 (cons 6 nil))))
+(cons (cons 1 (cons 2 (cons 3 nil)))) (cons 4 (cons 5 (cons 6 nil))))
 
 (list x y)
 (cons x (cons y nil))
