@@ -63,7 +63,28 @@
 
 (queens 8)
 
+#|
+2.43
 
- 
+2.43 的解决方案
+(define (queens board-size)
+  (define (queen-cols k)  
+    (if (= k 0)
+        (list empty-board)
+        (filter
+         (lambda (positions) (safe? k positions))
+	 ;; next expression changed
+         (flatmap
+	  (lambda (new-row)
+	    (map (lambda (rest-of-queens)
+		   (adjoin-position new-row k rest-of-queens))
+		 (queen-cols (- k 1))))
+	  (enumerate-interval 1 board-size)))))
+  (queen-cols board-size))
 
 
+因为现在 queen-cols 在 (enumerate-interval 1 board-size) 会被调用 board-size 遍，每次 queen-cols 调用大概执行 board-size 次，而原来 queen-cols 被调用了 board-size 次，时间为 T
+ 2.4.3 的时间大概为 (board-size * board-size) * T
+
+
+|#
