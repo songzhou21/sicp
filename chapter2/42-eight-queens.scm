@@ -83,7 +83,7 @@
   (queen-cols board-size))
 
 
-因为现在 queen-cols 在 (enumerate-interval 1 board-size) 会被调用 board-size 遍，每次 queen-cols 调用大概执行 board-size 次，而原来 queen-cols 被调用了 board-size 次，时间为 T
+因为现在 queens 的 queen-cols 在 (enumerate-interval 1 board-size) 会被调用 board-size 遍，每次 (queen-cols (- k 1)) 到 (queen-cols 0) 调用大概执行 board-size 次，而原来 queen-cols 被调用了 board-size 次，时间为 T
  2.4.3 的时间大概为 (board-size * board-size) * T
 
 
