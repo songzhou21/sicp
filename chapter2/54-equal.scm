@@ -32,3 +32,8 @@
 
 (equal? '(this is a list)
         '(this (is a) list))
+
+; 2.55
+(car ''abracadabra)
+(car (quote (quote abracadabra)))
+(list 'car (list 'quote (list 'quote 'abracadabra)))
