@@ -90,7 +90,7 @@
 (tree->list-2 tree3)
 
 ;; 2
-n^2
+;n^2
 
 ; tree->list-2
 #|
