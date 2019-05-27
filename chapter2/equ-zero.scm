@@ -72,11 +72,15 @@
 (define (imag-part z) (apply-generic 'imag-part z))
 (define (magnitude z) (apply-generic 'magnitude z))
 (define (angle z) (apply-generic 'angle z))
+(define (=zero? x) (apply-generic '=zero? x))
 
 ;; package
 (define (install-scheme-number-package)
   (define (tag x)
     (attach-tag 'scheme-number x))
+  (define (equ? x y)
+    (= x y))
+  
   (put 'add '(scheme-number scheme-number)
        (lambda (x y) (tag (+ x y))))
   (put 'sub '(scheme-number scheme-number)
@@ -88,8 +92,9 @@
   (put 'make 'scheme-number
        (lambda (x) (tag x)))
   (put 'equ? '(scheme-number scheme-number)
-       (lambda (x y)
-         (= x y)))
+       equ?)
+  (put '=zero? '(scheme-number)
+       (lambda (x) (equ? x 0)))
   'done)
 
 (define (make-scheme-number n)
@@ -102,6 +107,9 @@
   (define (make-rat n d)
     (let ((g (gcd n d)))
       (cons (/ n g) (/ d g))))
+  (define (equ? x y)
+    (and (= (numer x) (numer y))
+         (= (denom x) (denom y))))
   (define (add-rat x y)
     (make-rat (+ (* (numer x) (denom y))
                  (* (numer y) (denom x)))
@@ -130,10 +138,12 @@
   (put 'make 'rational
        (lambda (n d) (tag (make-rat n d))))
 
-   (put 'equ? '(rational rational)
-        (lambda (x y)
-            (and (= (numer x) (numer y))
-                 (= (denom x) (denom y)))))
+  (put 'equ? '(rational rational)
+        equ?)
+  
+  (put '=zero? '(rational)
+       (lambda (x)
+         ( = (numer x) 0)))
   'done)
 
 (define (make-rational n d)
@@ -232,6 +242,11 @@
        (lambda (x y)
          (and (= (real-part x) (real-part y))
               (= (imag-part x) (imag-part y)))))
+
+  (put '=zero? '(complex)
+       (lambda (x)
+         (and (= (real-part x) 0)
+              (= (imag-part x) 0))))
   
   (put 'real-part '(complex) real-part)
   (put 'imag-part '(complex) imag-part)
@@ -247,21 +262,22 @@
   ((get 'make-from-mag-ang 'complex) r a))
 
 ;; test
+(install-scheme-number-package)
+(install-rational-package)
+(install-complex-package)
 
 ;; 2.79
-(install-scheme-number-package)
 (equ? (make-scheme-number 10)
       (make-scheme-number 10))
 
 
-(install-rational-package)
 (equ? (make-rational 1 2)
       (make-rational 1 2))
 
 (equ? (make-rational 1 2)
       (make-rational 10086 10086))
 
-(install-complex-package)
+
 (equ? (make-complex-from-real-imag 1 2)
       (make-complex-from-real-imag 1 2))
 
@@ -273,3 +289,13 @@
 
 (equ? (make-complex-from-mag-ang 1 2)
       (make-complex-from-mag-ang 10086 10086))
+
+;; 2.80
+(=zero? (make-scheme-number 0))
+(=zero? (make-scheme-number 2))
+
+(=zero? (make-rational 0 2))
+(=zero? (make-rational 1 2))
+
+(=zero? (make-complex-from-real-imag 0 0))
+(=zero? (make-complex-from-real-imag 1 0))
