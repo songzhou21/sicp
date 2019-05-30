@@ -1,5 +1,3 @@
-#lang sicp
-
 ;; local tables
 (define (make-table)
   (let ((local-table (list '*table*)))
@@ -112,7 +110,7 @@
   
   ;; 
   (define (make-from-real-imag x y)
-    ((get 'make-from-real-imag 'rectangular) x y))magnitude
+    ((get 'make-from-real-imag 'rectangular) x y))
   (define (make-from-mag-ang r a)
     ((get 'make-from-mag-ang 'polar) r a))
   ;; internal procedures
@@ -244,19 +242,19 @@
 (newline)
 
 (magnitude z)
-#; (make-complex-from-real-imag 3 4)
-#; ((get 'make-from-real-imag 'complex) 3 4) ;install-complex-package
-#; (lambda (x y) (tag (make-from-real-imag x y)))
-#; ((get 'make-from-real-imag 'rectangular) x y) ; install-rectangular-package
-#; (lambda (x y) (tag (make-from-real-imag x y)))
-#; ('complex 'rectangular (cons x y))
-#; (magnitude complex-number) ; expand
-#; (magnitude ('complex ('rectangular (cons x y))))
-#; ((get 'magnitude ('complex)) ('rectangular (cons x y)))
-#; (magnitude ('rectangular (cons x y)))
-#; ((get 'magnitude ('rectangular)) (cons x y))
-#; ((sqrt (+ (square (real-part z))
-             (square (imag-part z)))) (cons x y))
+; (make-complex-from-real-imag 3 4)
+; ((get 'make-from-real-imag 'complex) 3 4) ;install-complex-package
+; (lambda (x y) (tag (make-from-real-imag x y)))
+; ((get 'make-from-real-imag 'rectangular) x y) ; install-rectangular-package
+; (lambda (x y) (tag (make-from-real-imag x y)))
+; ('complex 'rectangular (cons x y))
+; (magnitude complex-number) ; expand
+; (magnitude ('complex ('rectangular (cons x y))))
+; ((get 'magnitude ('complex)) ('rectangular (cons x y)))
+; (magnitude ('rectangular (cons x y)))
+; ((get 'magnitude ('rectangular)) (cons x y))
+; ((sqrt (+ (square (real-part z))
+;             (square (imag-part z)))) (cons x y))
 
 ;; 2.77
 ; 2
