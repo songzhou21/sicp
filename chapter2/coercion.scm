@@ -1,7 +1,9 @@
 (load "table.scm")
 (load "scheme-number.scm")
+(load "integer-number.scm")
 (load "rational-number.scm")
 (load "complex-number.scm")
+(load "real-number.scm")
 
 (define operation-table (make-table))
 (define get (operation-table 'lookup-proc))
@@ -30,6 +32,9 @@
 
 ;; package
 (install-scheme-number-package)
+(install-integer-package)
+(install-rational-package)
+(install-real-package)
 (install-complex-package)
 
 
@@ -37,8 +42,14 @@
 (define (make-scheme-number n)
   ((get 'make 'scheme-number) n))
 
+(define (make-integer n)
+  ((get 'make 'integer) n))
+
 (define (make-rational n d)
   ((get 'make 'rational) n d))
+
+(define (make-real n)
+  ((get 'make 'real) n))
 
 (define (make-complex-from-real-imag x y)
   ((get 'make-from-real-imag 'complex) x y))
