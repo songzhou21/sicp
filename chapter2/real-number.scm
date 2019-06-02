@@ -23,4 +23,7 @@
   
   (put-coercion 'real 'complex real->complex)
 
+  (put 'addd '(real real real)
+       (lambda (x y z) (tag (+ x y z))))
+
   'done)

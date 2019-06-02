@@ -21,6 +21,8 @@
                        (tag x)
                        (error "non-integer value" x))))
 
+  (put 'addd '(integer integer integer)
+       (lambda (x y z) (tag (+ x y z))))
 
   (put-coercion 'integer 'rational integer->rational)
 

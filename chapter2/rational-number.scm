@@ -24,6 +24,12 @@
            (make-real (/ (numer r)
                         (denom r))))
 
+  (define (addd x y z)
+    (make-rat (+ (* (numer x) (denom y) (denom z))
+                 (* (denom x) (numer y) (denom z))
+                 (* (denom x) (denom y) (numer z)))
+              (* (denom x) (denom y) (denom z))))
+
   ; interface to rest of the system
   (define (tag x) (attach-tag 'rational x))
 
@@ -39,6 +45,8 @@
   (put 'make 'rational
        (lambda (n d) (tag (make-rat n d))))
 
+  (put 'addd '(rational rational rational)
+       (lambda (x y z) (tag (addd x y z))))
 
   (put-coercion 'rational 'real rational->real)
 
