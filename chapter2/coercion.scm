@@ -72,4 +72,7 @@
 
 (define (exp x y) (apply-generic 'exp x y))
 (define (addd x y z) (apply-generic 'addd x y z))
+(define (equ? x y) (apply-generic 'equ? x y))
+(define (add x y) (apply-generic 'add x y))
+(define (sub x y) (apply-generic 'sub x y))
 

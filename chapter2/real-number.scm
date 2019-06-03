@@ -5,6 +5,10 @@
   (define (real->complex r)
     (make-complex-from-real-imag r 0))
 
+  (define (real->rational r)
+    (make-rational (inexact->exact (numerator r))
+                   (inexact->exact (denominator r))))
+
   (put 'add '(real real)
        (lambda (x y) (tag (+ x y))))
   (put 'sub '(real real)
@@ -21,6 +25,7 @@
                        (tag x)
                        (error "non-real value" x))))
   
+  (put-coercion 'real 'rational real->rational)
   (put-coercion 'real 'complex real->complex)
 
   (put 'addd '(real real real)

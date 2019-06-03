@@ -7,6 +7,7 @@
     ((get 'make-from-real-imag 'rectangular) x y))
   (define (make-from-mag-ang r a)
     ((get 'make-from-mag-ang 'polar) r a))
+
   ;; internal procedures
   (define (add-complex z1 z2)
     (make-from-real-imag (+ (real-part z1) (real-part z2))
@@ -28,6 +29,9 @@
                          (+ (imag-part z1) 
                             (imag-part z2)
                             (imag-part z3))))
+
+  (define (complex->real z)
+    (make-real (real-part z)))
 
   ;; interface to rest of the system
   (define (tag z) (attach-tag 'complex z))
@@ -62,6 +66,8 @@
   (put 'magnitude '(complex) magnitude)
   (put 'angle '(complex) angle)
   
+  (put-coercion 'complex 'real complex->real)
+
   'done)
 
 (define (install-rectangular-package)
