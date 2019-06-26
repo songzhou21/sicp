@@ -21,9 +21,17 @@
 (count-pairs t)
 ; 3
 
-(define two (list 'a 'b))
-(define four (cons two (cdr two)))
-(count-pairs four)
+(define x '(foo))
+(define y (cons x x))
+(define str2 (list y))
+(count-pairs str2)
+;3
+
+(define x '(foo))
+(define y (cons x x))
+(define str3 (cons y y))
+(count-pairs str3)
+;3
 
 ; 带有重复指针的序对
 (count-pairs (let ((x (cons 1 2)))
