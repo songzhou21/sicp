@@ -5,16 +5,16 @@
     (let* ((type-tags (map type-tag args))
            (proc (get op type-tags)))
       (if proc
-        (apply proc (map contents args))
-        (if (> (length type-tags) 1)
-          (let* ((highest-type (find-highest-type type-tags))
-                 (mapped-args (raise-all-to highest-type args))
-                 (mapped-types (map type-tag mapped-args))
-                 (mapped-proc (get op mapped-types)))
-            (if mapped-proc
-              (apply mapped-proc (map contents mapped-args))
-              (error "No method for these types -- APPLY-GENERIC"
-                     (list op type-tags))))))))
+          (apply proc (map contents args))
+          (if (> (length type-tags) 1)
+              (let* ((highest-type (find-highest-type type-tags))
+                     (mapped-args (raise-all-to highest-type args))
+                     (mapped-types (map type-tag mapped-args))
+                     (mapped-proc (get op mapped-types)))
+                (if mapped-proc
+                    (apply mapped-proc (map contents mapped-args))
+                    (error "No method for these types -- APPLY-GENERIC"
+                           (list op type-tags))))))))
   
   (let ((result (find-and-apply-op)))
     (if (and (pair? result)
