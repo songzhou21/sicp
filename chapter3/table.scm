@@ -33,10 +33,25 @@
 
 (lookup 'a table)
 
-(list 1 2)
-(cons 1 (cons 2 '()))
-(define a (cons (cons 'a 1) (cons (cons 'b 2) '())))
-(define b (list (cons 'a 1) (cons 'b 2)))
 
-a
-b
+; table list vs cons
+(define t (list '*table* 
+                (list 'math 
+                      (cons '+ 43)
+                      (cons '- 45)) 
+                (list 'letter
+                      (cons 'a 97))))
+
+t
+(define t (cons '*table* 
+                (cons (cons 'math (cons 
+                                    (cons 
+                                      (cons '+ 43)
+                                      (cons 
+                                        (cons '- 45)
+                                        '()))
+                                    '()))
+                      (cons 'letter (cons 
+                                      (cons 'a 97)
+                                      '())))))
+t
