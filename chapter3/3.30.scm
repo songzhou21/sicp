@@ -55,15 +55,15 @@
 (define s (make-wires '(0 0 0 0 0 0)))
 (define c-in (make-wire))
 
+(for-each (lambda (w)
+            (probe 'adder w))
+          s)
 
 (get-signals s)
 (ripple-carry-adder a b s c-in)
 (propagate)
 (get-signals s) ;; 15
 
-(for-each (lambda (w)
-            (probe 'adder w))
-          s)
 
 ;; b
 ;n * full
