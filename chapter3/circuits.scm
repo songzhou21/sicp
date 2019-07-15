@@ -167,6 +167,24 @@
       1
       0))
 
+;; adder
+(define (full-adder a b c-in sum c-out)
+  (let ((c1 (make-wire)) 
+        (c2 (make-wire))
+        (s  (make-wire)))
+    (half-adder b c-in s c1)
+    (half-adder a s sum c2)
+    (or-gate c1 c2 c-out)
+    'ok))
+
+(define (half-adder a b s c)
+  (let ((d (make-wire)) (e (make-wire)))
+    (or-gate a b d)
+    (and-gate a b c)
+    (inverter c e)
+    (and-gate d e s)
+    'ok))
+
 ;;; Sample simulation
 (define the-agenda (make-agenda))
 (define inverter-delay 2)
