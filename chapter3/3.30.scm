@@ -61,11 +61,15 @@
 (propagate)
 (get-signals s) ;; 15
 
-;; b
-n * full
+(for-each (lambda (w)
+            (probe 'adder w))
+          s)
 
-half = and + or + inv + and = 2*and + or + inv
-full = or + 2 * half
-     = 4*and + 3*or + 2*inv
+;; b
+;n * full
+;
+;half = and + or + inv + and = 2*and + or + inv
+;full = or + 2 * half
+;     = 4*and + 3*or + 2*inv
 
 
