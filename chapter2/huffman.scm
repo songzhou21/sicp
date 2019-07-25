@@ -50,6 +50,27 @@
         (else (error "bad bit: 
                CHOOSE-BRANCH" bit))))
 
+(define (encode message tree)
+  (if (null? message)
+      '()
+      (append 
+       (encode-symbol (car message) 
+                      tree)
+       (encode (cdr message) tree))))
+
+(define (encode-symbol symbol tree)
+  (cond ((not (memq symbol (symbols tree)))
+         (error "invalid symbol -- ENCODE-SYMBOL" symbol))
+        ((leaf? tree) '())
+        ((memq symbol (symbols (left-branch tree)))
+         (cons 0 (encode-symbol symbol (left-branch tree)))
+         )
+        ((memq symbol (symbols (right-branch tree)))
+         (cons 1 (encode-symbol symbol (right-branch tree)))
+         )
+        )
+  )
+
 ;; test
 (define sample-tree
   (make-code-tree
@@ -63,4 +84,7 @@
 (define sample-message
   '(0 1 1 0 0 1 0 1 0 1 1 1 0))
 
-(decode sample-message sample-tree)
+(define decoded (decode sample-message sample-tree))
+(define encoded (encode decoded sample-tree))
+
+(equal? sample-message encoded)
