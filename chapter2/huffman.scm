@@ -126,3 +126,35 @@
 (equal? sample-message encoded)
 
 (generate-huffman-tree '(('A 4) ('B 2) ('D 1) ('C 1)))
+
+; 2.70
+(define rock-tree 
+  (generate-huffman-tree '((A 2)
+                           (BOOM 1)
+                           (GET 2)
+                           (JOB 2)
+                           (NA 16)
+                           (SHA 3)
+                           (YIP 9)
+                           (WAH 1)
+                           )))
+(define msg 
+  '(
+    Get a job 
+    Sha na na na na na na na na
+    Get a job 
+    Sha na na na na na na na na
+    Wah yip yip yip yip yip yip yip yip yip
+    Sha boom
+    ))
+
+;; 108 bits
+(define raw-length
+  (* (length msg) 3))
+
+;; 84 bits
+(define c-length (length (encode msg rock-tree)))
+
+;; 24 bits
+(- raw-length c-length)
+
