@@ -159,6 +159,17 @@
 (define (connect connector new-constraint)
   ((connector 'connect) new-constraint))
 
+;; 3.33 averager
+(define (averager a b product)
+  (let ((sum (make-connector))
+        (d (make-connector)))
+    
+    (adder a b sum)
+    (constant (/ 1 2) d)
+    (multiplier sum d product)
+    'ok)
+  )
+
 ;; test
 (define (celsius-fahrenheit-converter c f)
   (let ((u (make-connector))
@@ -185,3 +196,20 @@
 ;(set-value! F 212 'user)
 (forget-value! C 'user)
 (set-value! F 212 'user)
+
+;; 3.33
+(define averager-a (make-connector))
+(define averager-b (make-connector))
+(define averager-c (make-connector))
+
+(averager averager-a averager-b averager-c)
+(probe "Averager output" averager-c)
+(probe "Averager a" averager-a)
+(probe "Averager b" averager-b)
+
+(set-value! averager-a 3 'user)
+(set-value! averager-b 5 'user)
+(forget-value! averager-a 'user)
+(forget-value! averager-b 'user)
+(set-value! averager-c 4 'user)
+(set-value! averager-b 5 'user)
