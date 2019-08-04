@@ -213,3 +213,14 @@
 (forget-value! averager-b 'user)
 (set-value! averager-c 4 'user)
 (set-value! averager-b 5 'user)
+
+;; 3.34
+(define s-a (make-connector))
+(define s-b (make-connector))
+(define (squarer a b) (multiplier a a b))
+(squarer s-a s-b)
+(probe "Squarer" s-b)
+(probe "Squarer input" s-a)
+(set-value! s-a 3 'user)
+(forget-value! s-a 'user)
+(set-value! s-b 9 'user)
