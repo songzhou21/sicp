@@ -170,6 +170,40 @@
     'ok)
   )
 
+;; 3.35 Squarer
+(define (squarer a b)
+  (define (process-new-value)
+    (if (has-value? b)
+        (if (< (get-value b) 0)
+            (error "square less than 0: 
+                    SQUARER" 
+                   (get-value b))
+            (set-value! a
+                        (sqrt (get-value b))
+                        me))
+        (if (has-value? a)
+            (set-value! b
+                        (* (get-value a)
+                           (get-value a))
+                        me)
+            (error "Neither a or b has value"))
+            ))
+  
+  (define (process-forget-value)
+    (forget-value! a me)
+    (forget-value! b me))
+    
+  (define (me request)
+    (cond ((eq? request 'I-have-a-value)  
+           (process-new-value))
+          ((eq? request 'I-lost-my-value) 
+           (process-forget-value))
+          (else 
+           (error "Unknown request -- Squarer" request))))
+  (connect a me)
+  (connect b me)
+  me)
+
 ;; test
 (define (celsius-fahrenheit-converter c f)
   (let ((u (make-connector))
@@ -214,13 +248,13 @@
 (set-value! averager-c 4 'user)
 (set-value! averager-b 5 'user)
 
-;; 3.34
+;; 3.35
 (define s-a (make-connector))
 (define s-b (make-connector))
-(define (squarer a b) (multiplier a a b))
+
 (squarer s-a s-b)
-(probe "Squarer" s-b)
-(probe "Squarer input" s-a)
+(probe "Squarer a" s-a)
+(probe "Squarer b" s-b)
 (set-value! s-a 3 'user)
 (forget-value! s-a 'user)
 (set-value! s-b 9 'user)
