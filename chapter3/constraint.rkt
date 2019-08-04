@@ -204,6 +204,36 @@
   (connect b me)
   me)
 
+;; 3.37
+(define (celsius-fahrenheit-converter-exp x)
+  (c+ (c* (c/ (cv 9) (cv 5))
+          x)
+      (cv 32)))
+
+(define (c+ x y)
+  (let ((z (make-connector)))
+    (adder x y z)
+    z))
+
+(define (c* x y)
+  (let ((z (make-connector)))
+    (multiplier x y z)
+    z))
+
+
+(define (c/ x y)
+  (let ((z (make-connector)))
+    (multiplier z
+                y
+                x)
+    z))
+
+(define (cv x)
+  (let ((z (make-connector)))
+    (constant x z)
+    z))
+
+
 ;; test
 (define (celsius-fahrenheit-converter c f)
   (let ((u (make-connector))
@@ -258,3 +288,13 @@
 (set-value! s-a 3 'user)
 (forget-value! s-a 'user)
 (set-value! s-b 9 'user)
+
+;; 3.37
+(define exp-C (make-connector))
+(define exp-F (celsius-fahrenheit-converter-exp exp-C))
+(probe "Celsius temp" exp-C)
+(probe "Fahrenheit temp" exp-F)
+(set-value! exp-C 25 'user)
+(forget-value! exp-C 'user)
+(set-value! exp-F 212 'user)
+
